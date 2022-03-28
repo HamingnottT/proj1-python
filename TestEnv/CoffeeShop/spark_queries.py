@@ -92,8 +92,35 @@ class spark_queries:
         spark.sql("SHOW TBLPROPERTIES bev_branches_partitioned").show
         spark.sql("Describe formatted bev_branches_partitioned").show(50)
 
+        # ~ Displays information on the two main tables used in this project for comparison ~
+        print("\nOther tables used [source]:\n")
+        spark.sql("Describe formatted bev_branches").show
+        spark.sql("Describe formatted bev_conscount").show
+
+        # /!\ Delete functionality bugged - pending fix
+        # Deletes a row from a table - for comparison there is a before and after query on row count
+        # print("\nCount of total beverages in branch 4:\n")
+        # print("~ Before row deletion ~\n")
+        # spark.sql("SELECT count(beverage) FROM bev_branches_partitioned WHERE branch = 'Branch4'").show()
+        # spark.sql("DELETE FROM bev_branches_partitioned WHERE branch = 'Branch4' AND beverage = 'SMALL_cappuccino'")
+        # print("~ After row deletion ~\n")
+        # spark.sql("SELECT count(beverage) FROM bev_branches_partitioned WHERE branch = 'Branch4'").show()
+
+    # /!\ issues using df method in PySpark - pending fix
     def scenario_6(self, spark):
-        pass
+        pivot1src = spark.sql("SELECT b.branch, c.beverage, c.conscount FROM bev_branches b JOIN bev_conscount c ON b.beverage=c.beverage")
+
+        print("\nAbsolute maximum consumer sales per beverage:\n")
+        spark.sql("SELECT max(c.conscount) FROM bev_branches b JOIN bev_conscount c ON b.beverage=c.beverage").show()
+
+        print("\nTotal number of beverages available over entire region:\n")
+        spark.sql("SELECT count(b.beverage) FROM bev_branches b JOIN bev_conscount c ON b.beverage=c.beverage").show
+
+        print("\nTotal consumer sales in all branches:\n")
+        pivot1src.groupBy("b.branch").agg(sum("c.conscount")).sort("b.branch").show(50)
+
+        print("\nIndividual beverage sales per branch:\n")
+        # pivot1src.groupBy("c.beverage").pivot("b.branch").agg(count("c.conscount")).sort("c.beverage").show(50)
 
     # Handles the back end Spark function calling in sub_portal
     def list_branches(self):
@@ -130,7 +157,7 @@ class spark_queries:
             elif option == 5:
                 self.scenario_5(self.spark)
             elif option == 6:
-                pass
+                self.scenario_6(self.spark)
             else:
                 print("\nInvalid response, please try again.\n")
 

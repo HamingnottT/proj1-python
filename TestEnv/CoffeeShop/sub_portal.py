@@ -17,7 +17,7 @@ class sub_portal:
     def scenario_mode():
         print()
         print("-"*48)
-        print("Scenario Mode chosen. This lists out Project 1's\nproblems by scenario.")
+        print("Scenario Mode chosen. This lists out Project 1's\nproblems by scenario. Initializing Spark. . .")
         print("-"*48)
 
         print()

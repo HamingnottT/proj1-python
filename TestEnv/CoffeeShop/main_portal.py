@@ -7,10 +7,11 @@ class menu:
     def main_menu():
         # initalizes the start function in spark_queries
         # spark_queries().start()
-
+        print()
         print("-"*48)
         print("Welcome user to Coffee Shop Inc. database!\nBelow you will find our program's main directory:")
         print("-"*48)
+        print()
 
         def main_options():
             print("What information are you looking for today?\n\n"

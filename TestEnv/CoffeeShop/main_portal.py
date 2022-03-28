@@ -1,6 +1,6 @@
 # Main menu of program
 import sys
-from CoffeeShop.spark_queries import spark_queries
+from CoffeeShop.sub_portal import sub_portal
 
 print("="*48 + "\nmain_portal.py running\n" + "="*48)
 class menu:
@@ -23,15 +23,23 @@ class menu:
 
         while option != 0:
             if option == 1:
-                # sub_menus.websites() 
-                pass 
+                sub_portal.list_branches()
+                # option = 99
             elif option == 2:
-                # sub_menus.user() 
-                pass    
+                sub_portal.scenario_mode()
+                # option = 99
+                pass
+            # elif option == 99:
+            #     # choosing an option caused an infinite while loop, an unexpected issue despite proj0 having none related to this
+            #     # for now this is a way to circumvent this bug
+            #     main_options()
+            #     option = int(input("Input here: "))
             else:
                 print("\nInvalid response, please try again.\n")
-                main_options()
-                option = int(input("Input here: "))
+
+            print("\n")    
+            main_options()
+            option = int(input("Input here: "))
         
         print("\nEnding program. . .\n")
 

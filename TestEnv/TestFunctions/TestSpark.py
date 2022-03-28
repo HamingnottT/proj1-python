@@ -10,3 +10,9 @@ spark = SparkSession.builder.appName("proj1-python").config("spark.master", "loc
 df_pyspark = spark.read.text("input/Bev_BranchA.txt")
 
 df_pyspark.show()
+
+# Old df_demo
+# def df_demo(self, spark):
+        # df_pyspark = spark.read.text("../input/Bev_BranchA.txt")
+        # df_pyspark = spark.read.text("input/Bev_BranchA.txt")
+        # df_pyspark.show()

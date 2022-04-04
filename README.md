@@ -35,6 +35,8 @@ pip install findspark
 
 Findspark is optional - it helps find the spark installation as PySpark is not in PATH by default.
 
+Included requirements.txt and a batch file for easy pip installation for windows users.
+
 # Usage
 This project should be ready to plug and play. There are a few known bugs, such as in scenario 6, as this is an on-going project. More features will be added later for better versatility.
 
